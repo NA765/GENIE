@@ -1,0 +1,35 @@
+<View>
+  <View style="display: flex; flex-direction: row; height: 100vh;">
+    <!-- Left Side Image -->
+    <View style="width: 60%; padding: 10px;">
+      <Image name="image" value="$image" zoom="true" />
+    </View>
+
+    <!-- Right Side Content -->
+    <View style="width: 50%; display: flex; flex-direction: column; padding: 10px;">
+      <!-- Upper Section: Editable Notes -->
+      <View style="height: 30%; margin-bottom: 10px;">
+        <Header value="Notes:" />
+        <TextArea name="notes" toName="image" placeholder="Enter notes..." editable="true" />
+      </View>
+
+      <!-- Lower Section: Dynamically Rendered Reasons and Conclusion -->
+      <View style="height: 70%; overflow-y: auto; font-size: 20px;">
+        <Header value="Details:" />
+        
+        <!-- Dynamically Rendered Reasons Array -->
+        <Choices 
+          name="dynamic_reasons" 
+          toName="image" 
+          selection="checkbox" 
+          value="$points"
+          layout="vertical" 
+          choice="multiple"
+        />
+        
+        <!-- Separately Rendered Conclusion -->
+        <Text name="conclusion" value="$conclusion" />
+      </View>
+    </View>
+  </View>
+</View>
