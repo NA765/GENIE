@@ -40,8 +40,8 @@ Subfolder name `source1`, `source2` represent the source of generative models, s
 
 Then you need to perform low-level error annotation by running the following command:
 ```
-python data_construction/fake_annotation/low_level_error_annotation.py --image_root /path/to/your/generated/images --annotation_path path/to/your/low/level/annotation
+python data_construction/fake_annotation/annotation_low_level.py --input_folder /path/to/your/generated/images --output_folder path/to/your/low/level/annotation
 ```
 
-This allows you to save the results of your low-level annotation into the `annotation_path`, making it convenient for subsequent use.
+This allows you to save the results of your low-level annotation into the `output_folder`, making it convenient for subsequent use.
 
