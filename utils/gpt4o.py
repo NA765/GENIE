@@ -10,9 +10,7 @@ from PIL import Image
 
 from typing import List, Optional, Union
 
-
-
-OPENAI_API_KEY = "YOUR API KEY HERE"
+from .constants import *
 
 
 
