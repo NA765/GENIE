@@ -37,3 +37,11 @@ generated_images/
 
 Subfolder name `source1`, `source2` represent the source of generative models, such as `stable-diffusion-v1-5` and `flux.1-dev`. Each subfolder contains synthetic images, with no specific restrictions of number or name.
 
+
+Then you need to perform low-level error annotation by running the following command:
+```
+python data_construction/fake_annotation/low_level_error_annotation.py --image_root /path/to/your/generated/images --annotation_path path/to/your/low/level/annotation
+```
+
+This allows you to save the results of your low-level annotation into the `annotation_path`, making it convenient for subsequent use.
+
