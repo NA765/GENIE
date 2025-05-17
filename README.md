@@ -14,7 +14,11 @@ This repository provides code of data construction by HEAP and the score evaluat
 Since the data generation process requires annotation using GPT-4o or other models, you need to set up an API key before using the code. Please replace value of `API_KEY` in [utils/constants.py](utils/constants.py) with your API key.
 
 
-### Data Construction
+
+### Generation of Synthetic Images (Optional)
+
+
+### Data Construction of Generated Images
 
 
 The annotation process of HEAP includes low-level annotation, high-level annotation, and combine and structure. Before the full annotation process, you need to organize the synthetic images in the following structure:
@@ -75,7 +79,48 @@ This step will improve the quality of annotation, and revised annotation will be
 Finally, you need to combine and restructure the final annotation results, which can be achieved by running the following command:
 
 ```
-python data_construction/fake_annotation/annotation_high_level_refine.py --input_folder /path/to/your/generated/images --low_level_folder path/to/your/unrevised/high/level/annotation --high_level_folder path/to/your/revised/high/level/annotation --output_folder path/to/your/final/annotation
+python data_construction/fake_annotation/annotation_combine.py --input_folder /path/to/your/generated/images --low_level_folder path/to/your/unrevised/high/level/annotation --high_level_folder path/to/your/revised/high/level/annotation --output_folder path/to/your/final/annotation
 ```
 
 The final annotation will be saved to `output_folder`.
+
+
+### Data Construction of Real Images
+
+Before annotating real images, we also need to standardize the folder structure. Please organize the real images in the following structure:
+
+```
+real_images/
+├── image1.png
+├── image2.png
+├── image3.png
+└── ...
+```
+
+
+The annotation process for real images is simpler compared to synthetic images, as such annotations typically involves restating the plausible components within the image, and thus usually does not involve significant hallucinations. You can obtain the final annotations for real images by running the following two commands:
+
+
+```
+python data_construction/real_annotation/annotation_real.py --input_folder /path/to/your/real/images --output_folder path/to/your/high/level/annotation
+python data_construction/real_annotation/annotation_real_combine.py --input_folder /path/to/your/real/images --high_level_folder path/to/your/high/level/annotation --output_folder path/to/your/final/annotation
+```
+
+The final annotation will be saved to `output_folder`.
+
+### Save with JSON Format
+
+
+### Manual Revison for High-level Error Annotation Stage 2
+
+
+
+## TODO
+
+- []  `requirements.txt`
+- [] `README.md`
+- [] `Code of synthetic image generation`
+
+
+
+
