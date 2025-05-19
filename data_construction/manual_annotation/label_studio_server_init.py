@@ -15,4 +15,4 @@ def serve_text(filename):
     return send_from_directory(ANNOTATION_ROOT, filename)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=9091)
+    app.run(host='0.0.0.0', port=PORT)
