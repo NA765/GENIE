@@ -176,7 +176,7 @@ label-studio start --port 8080
 
 This will create a label server on [http://127.0.0.1:8080/projects](http://127.0.0.1:8080/projects), you can start labeling by sign in or sign up an account.
 
-Then you can create label tasks on your own. Click the `Create` button on the top right corner, and fill the description of this project in `Project Name` column. Next, **upload the json file for labeling tasks in the `Data Import` column**. When this is ready, choose `Labeling Setup` column and click `Custom template` on the left, **fill the template with content in [data_construction/manual_annotation/label_studio_template.xml](data_construction/manual_annotation/label_studio_template.xml)**. Finally, click `Save` to save all settings.
+Then you can create label tasks on your own. Click the `Create` button on the top right corner, and fill the description of this project in `Project Name` column. Next, **upload the json file for labeling tasks in the `Data Import` column**. When this is ready, choose `Labeling Setup` column and click `Custom template` on the left, **fill the template with content in [label_studio_template.xml](data_construction/manual_annotation/label_studio_template.xml)**. Finally, click `Save` to save all settings.
 
 Then you can start labeling the tasks!🎉 Below is the screenshot of the Label Studio platform interface for manual annotation. The top-right corner allows adding human revisions, while the bottom-right corner enables adding or removing generated annotation points.
 ![benchmark_screenshot](https://github.com/user-attachments/assets/7d80074f-f3b1-483f-88cd-0fdf099f3c8d)
