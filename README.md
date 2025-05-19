@@ -191,13 +191,13 @@ Before evaluation, you should prepare the output results and ground truth in fol
         "image_path": /path/to/your/image,
         "ground_truth": ground_truth_annotation,
         "generated": generated_annotation,
-        "label": 0 (0 - real, 1 - fake)
+        "label": 0
     },
     ...
 ]
 ```
 
-It should be noted that do not change the structure of ground truth and generated results, e.g. do not delete or remove signals like `<begin_of_point>` in the annotations. Then run following command to get the evaluation results:
+For `"label"`, 0 represents for real and 1 represents for fake. It should be noted that do not change the structure of ground truth and generated results, e.g. do not delete or remove signals like `<begin_of_point>` in the annotations. Then run following command to get the evaluation results:
 
 ```
 python eval/score_compute.py --annotation_file /path/to/json/file --metrics sentence_transformer
