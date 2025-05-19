@@ -13,6 +13,8 @@ This repository provides code of data construction by HEAP and the score evaluat
 
 Since the data generation process requires annotation using GPT-4o or other models, you need to set up an API key before using the code. Please replace value of `API_KEY` in [utils/constants.py](utils/constants.py) with your API key.
 
+***Note**: If you have acess to Azure OpenAI platform with corresponding models implemented, you can replace the function `gpt4o_response` in [utils/gpt4o.py](utils/gpt4o.py) with `gpt4o_response_legacy` in this file.
+
 
 
 ### Generation of Synthetic Images (Optional)
@@ -88,7 +90,7 @@ This step will improve the quality of annotation, and revised annotation will be
 Finally, you need to combine and restructure the final annotation results, which can be achieved by running the following command:
 
 ```
-python data_construction/fake_annotation/annotation_combine.py --input_folder /path/to/your/generated/images --low_level_folder path/to/your/low/level/annotation --high_level_folder path/to/your/revised/high/level/annotation --output_folder path/to/your/final/annotation
+python data_construction/fake_annotation/annotation_combine.py --input_folder /path/to/your/generated/images --low_level_folder path/to/your/low/level/annotation --high_level_folder path/to/your/revised/high/level/annotation --output_folder path/to/your/final/fake/annotation
 ```
 
 The final annotation will be saved to `output_folder`.
@@ -112,21 +114,65 @@ The annotation process for real images is simpler compared to synthetic images, 
 
 ```
 python data_construction/real_annotation/annotation_real.py --input_folder /path/to/your/real/images --output_folder path/to/your/high/level/annotation
-python data_construction/real_annotation/annotation_real_combine.py --input_folder /path/to/your/real/images --high_level_folder path/to/your/high/level/annotation --output_folder path/to/your/final/annotation
+python data_construction/real_annotation/annotation_real_combine.py --input_folder /path/to/your/real/images --high_level_folder path/to/your/high/level/annotation --output_folder path/to/your/final/real/annotation
 ```
 
 The final annotation will be saved to `output_folder`.
 
 ### Save with JSON Format
 
+If you want to package the final annotation results into a JSON format similar to the LLaVA training data format (refer [here](https://huggingface.co/datasets/liuhaotian/LLaVA-CC3M-Pretrain-595K)), you can run the following command:
+
+```
+python data_construction/final_json_create.py --fake_image_root /path/to/your/generated/images --fake_annotation_root path/to/your/final/fake/annotation --real_image_root /path/to/your/real/images --real_annotation_root path/to/your/final/real/annotation --output_combined_json /path/to/your/output/json/file
+```
+
+You can finally save the results to `output_combined_json` and start training!🎉
+
 
 ### Manual Revison for High-level Error Annotation Stage 2
+
+If you want to implement manual revision during the revision stage of high-level error annotation for synthetic images, you can deploy Label Studio to facilitate the process. Follow the instructions below to complete this process.
+
+#### Setup
+
+First, you need to fill the corresponding content in [utils/constants.py](utils/constants.py). Replace `SERVER_IP` with your IP, and `IMAGE_ROOT` for your generated image root, `ANNOTATION_ROOT` for your generated annotation root.
+
+#### Create JSON file for Labeling Tasks
+
+Then you need to create JSON file for labeling tasks in Label Studio. Run the following command to obtain JSON file in `output_path`:
+
+```
+python data_construction/manual_annotation.py --image_dir /path/to/your/generated/images --text_dir path/to/your/unrevised/high/level/annotation --output_path /path/to/your/output/json/file
+```
+
+#### Initialize Your Label Studio Server
+
+To ensure your image and annotation will be correctly loaded in your server, run this command first:
+
+```
+python data_construction/manual_annotation/label_studio_server_init.py
+```
+
+Then run the following command to start server:
+
+```
+label-studio start --port 8080
+```
+
+This will create a label server on [http://127.0.0.1:8080/projects](http://127.0.0.1:8080/projects), you can start labeling by sign in or sign up an account.
+
+Then you can create label tasks on your own. Click the `Create` button on the top right corner, and fill the description of this project in `Project Name` column. Next, **upload the json file for labeling tasks in the `Data Import` column**. When this is ready, choose `Labeling Setup` column and click `Custom template` on the left, **fill the template with content in [data_construction/manual_annotation/label_studio_template.xml](data_construction/manual_annotation/label_studio_template.xml)**. Finally, click `Save` to save all settings.
+
+Then you can start labeling the tasks!🎉 Below is the screenshot of the Label Studio platform interface for manual annotation. The top-right corner allows adding human revisions, while the bottom-right corner enables adding or removing generated annotation points.
+![benchmark_screenshot](https://github.com/user-attachments/assets/7d80074f-f3b1-483f-88cd-0fdf099f3c8d)
 
 
 
 ## TODO
 
 - [ ] `requirements.txt`
+- [ ] `Evaluation`
 - [ ] `README.md`
 - [x] `Code of synthetic image generation`
 
