@@ -1,0 +1,13 @@
+azure-identity==1.23.0
+diffusers==0.32.2
+evaluate==0.4.3
+Flask==3.1.1
+flask_cors==5.0.1
+label-studio==1.15.0
+numpy==2.2.6
+openai==1.79.0
+Pillow==11.2.1
+sentence_transformers==3.4.1
+setuptools==79.0.1
+torch==2.4.1
+tqdm==4.67.1
