@@ -30,7 +30,7 @@ def parse_text(text):
 if __name__ =='__main__':
 
     parser = argparse.ArgumentParser(description="Process images with GPT-4 and a prompt template (parallel processing).")
-    parser.add_argument("--image_dir", default="label_studio_manual.json", help="Path to the folder containing images.")
+    parser.add_argument("--image_dir", default="generated_images", help="Path to the folder containing images.")
     parser.add_argument("--text_dir", default="generated_annotation_high_level_revised_manual", help="Path to the folder where high-level text files are stored.")
     parser.add_argument("--output_path", default="labelstudio_tasks.json", help="Path to the output JSON file for label-studio labeling.")
     args = parser.parse_args()
