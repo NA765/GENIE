@@ -17,11 +17,13 @@ Since the data generation process requires annotation using GPT-4o or other mode
 
 ### Generation of Synthetic Images (Optional)
 
+If you want to generate images yourself, you can run [data_construction/image_genrate.py](data_construction/image_genrate.py) first:
 
-### Data Construction of Generated Images
+```
+python data_construction/image_genrate.py --save_image_root ./generated_images --images_per_cat 4
+```
 
-
-The annotation process of HEAP includes low-level annotation, high-level annotation, and combine and structure. Before the full annotation process, you need to organize the synthetic images in the following structure:
+You can also add or remove `model_ids` and `prompts` in this file to control types of generated images. The final structure of image folder will be in the following structure:
 
 ```
 generated_images/
@@ -40,7 +42,14 @@ generated_images/
 └── ...
 ```
 
-Subfolder name `source1`, `source2` represent the source of generative models, such as `stable-diffusion-v1-5` and `flux.1-dev`. Each subfolder contains synthetic images, with no specific restrictions of number or name.
+Subfolder name `source1`, `source2` represent the source of generative models, such as `stable-diffusion-v1-5` and `flux.1-dev`. Each subfolder contains synthetic images, with no specific restrictions of number or name Generation of Synthetic Images part.
+
+
+### Data Construction of Generated Images
+
+
+The annotation process of HEAP includes low-level annotation, high-level annotation, and combine and structure. Before the full annotation process, you need to organize the synthetic images in the structure mentioned in .
+
 
 
 #### Low-level Error Annotation
@@ -79,7 +88,7 @@ This step will improve the quality of annotation, and revised annotation will be
 Finally, you need to combine and restructure the final annotation results, which can be achieved by running the following command:
 
 ```
-python data_construction/fake_annotation/annotation_combine.py --input_folder /path/to/your/generated/images --low_level_folder path/to/your/unrevised/high/level/annotation --high_level_folder path/to/your/revised/high/level/annotation --output_folder path/to/your/final/annotation
+python data_construction/fake_annotation/annotation_combine.py --input_folder /path/to/your/generated/images --low_level_folder path/to/your/low/level/annotation --high_level_folder path/to/your/revised/high/level/annotation --output_folder path/to/your/final/annotation
 ```
 
 The final annotation will be saved to `output_folder`.
@@ -117,9 +126,9 @@ The final annotation will be saved to `output_folder`.
 
 ## TODO
 
-- []  `requirements.txt`
-- [] `README.md`
-- [] `Code of synthetic image generation`
+- [ ] `requirements.txt`
+- [ ] `README.md`
+- [x] `Code of synthetic image generation`
 
 
 
