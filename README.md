@@ -167,12 +167,49 @@ Then you can create label tasks on your own. Click the `Create` button on the to
 Then you can start labeling the tasks!🎉 Below is the screenshot of the Label Studio platform interface for manual annotation. The top-right corner allows adding human revisions, while the bottom-right corner enables adding or removing generated annotation points.
 ![benchmark_screenshot](https://github.com/user-attachments/assets/7d80074f-f3b1-483f-88cd-0fdf099f3c8d)
 
+When you complete the manual annotation task, click the `Export` button on the project page and select the `JSON` format for export. Finally, run the command below to finish the manual revision process:
+
+```
+python data_construction/manual_annotation/annotation_high_level_manual_refine.py --json_path /path/to/your/manual/label/json/path --image_root /path/to/your/generated/images --annotation_root path/to/your/manual/revised/high/level/annotation
+```
+
+Now you have finished all manual revision process!🎉
+
+
+### Evaluation
+
+This repository also provides evaluation code to calculate four metrics: **accuracy**, **match score**, **richness score**, and **hallucination rate**. The following figure illustrates the calculation process of these evaluation metrics.
+
+![image](https://github.com/user-attachments/assets/82b38c4b-7f91-409c-8788-f666d2f056f2)
+
+
+Before evaluation, you should prepare the output results and ground truth in following JSON format:
+
+```
+[
+    {
+        "image_path": /path/to/your/image,
+        "ground_truth": ground_truth_annotation,
+        "generated": generated_annotation,
+        "label": 0 (0 - real, 1 - fake)
+    },
+    ...
+]
+```
+
+It should be noted that do not change the structure of ground truth and generated results, e.g. do not delete or remove signals like `<begin_of_point>` in the annotations. Then run following command to get the evaluation results:
+
+```
+python eval/score_compute.py --annotation_file /path/to/json/file --metrics sentence_transformer
+```
+
+`metrics` can be chosen from `sentence_transformer`, `bleu@1`, `bleu@2`, `bleu@3`, `bleu@4`, `rouge`, `meteor` and `gpt_4o`. The results will also be saved to `tmp_eval_result.txt` by default.
 
 
 ## TODO
 
 - [ ] `requirements.txt`
-- [ ] `Evaluation`
+- [x] `Evaluation`
 - [ ] `README.md`
 - [x] `Code of synthetic image generation`
 
