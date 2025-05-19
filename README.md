@@ -11,7 +11,21 @@ This repository provides code of data construction by HEAP and the score evaluat
 
 ### Setup
 
-Since the data generation process requires annotation using GPT-4o or other models, you need to set up an API key before using the code. Please replace value of `API_KEY` in [utils/constants.py](utils/constants.py) with your API key.
+First, run the following commands to create the environment and install dependencies:
+
+```
+# clone this repository
+git clone https://github.com/NA765/GENIE.git
+cd GENIE
+
+# install dependencies
+conda create -n genie python=3.10 -y
+conda activate genie
+pip install --upgrade pip  # upgrade pip
+pip install -r requirements.txt 
+```
+
+Now you have initialized your environment. Since the data generation process requires annotation using GPT-4o or other models, you need to set up an API key before using the code. Please replace value of `API_KEY` in [utils/constants.py](utils/constants.py) with your API key.
 
 ***Note**: If you have acess to Azure OpenAI platform with corresponding models implemented, you can replace the function `gpt4o_response` in [utils/gpt4o.py](utils/gpt4o.py) with `gpt4o_response_legacy` in this file.
 
@@ -204,15 +218,6 @@ python eval/score_compute.py --annotation_file /path/to/json/file --metrics sent
 ```
 
 `metrics` can be chosen from `sentence_transformer`, `bleu@1`, `bleu@2`, `bleu@3`, `bleu@4`, `rouge`, `meteor` and `gpt_4o`. The results will also be saved to `tmp_eval_result.txt` by default.
-
-
-## TODO
-
-- [ ] `requirements.txt`
-- [x] `Evaluation`
-- [ ] `README.md`
-- [x] `Code of synthetic image generation`
-
 
 
 
